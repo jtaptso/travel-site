@@ -1,6 +1,7 @@
 const path = require('path')
 const postCSSPlugins = [
     require('postcss-import'),
+    require('postcss-mixins'),
     require('postcss-simple-vars'),
     require('postcss-nested'),
     require('autoprefixer')
@@ -13,8 +14,12 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, 'app'),
+        before: function(app, server){
+            server._watch('./app/**/*.html')
+        },
         hot: true,
-        port: 3000
+        port: 3000,
+        host: '0.0.0.0'
     },
     mode: 'development',
     module: {
